@@ -1,0 +1,41 @@
+{% extends 'floreriaWeb/base.html' %}
+{% load static %}
+
+{% block contenido %}
+{% load humanize %}
+
+<section>
+    <div class="p-5 bg-light">
+        <div class="container">
+            <h1 class="display-3 text-center bg-light">JARDINERIA</h1>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container p-0  ">
+        <div class="row d-flex justify-content-center mx-0">
+
+                {% for p in productos %}
+
+                <div class="col-lg-3 col-sm-6 text-center border shadow m-3 ">
+
+                    {% if p.imgen %}
+                    
+                        <img src="{{ p.imgen.url }} " alt="imagen" class="img-fluid">
+
+                    {% endif %}
+
+                    <h3>{{ p.nombre | title}}</h3>
+                    <p>Precio: {{ p.precio | intcomma}}</p>
+                    <button type="button" class="btn btn-success">Agregar al carrito</button>
+                </div>
+
+                {% endfor %}
+
+        
+        </div>
+    </div>
+</section>
+
+{% endblock contenido %}
