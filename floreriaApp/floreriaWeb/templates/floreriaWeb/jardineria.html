@@ -16,24 +16,27 @@
     <div class="container p-0  ">
         <div class="row d-flex justify-content-center mx-0">
 
-                {% for p in productos %}
+            {% for p in productos %}
 
-                <div class="col-lg-3 col-sm-6 text-center border shadow m-3 ">
+                {% if p.categoria_id == 5 %}
 
-                    {% if p.imgen %}
-                    
-                        <img src="{{ p.imgen.url }} " alt="imagen" class="img-fluid">
+                    <div class="col-lg-3 col-sm-6 text-center border shadow m-3 ">
 
-                    {% endif %}
+                        {% if p.imgen %}
+                            
+                            <img src="{{ p.imgen.url }} " alt="imagen" class="img-fluid">
 
-                    <h3>{{ p.nombre | title}}</h3>
-                    <p>Precio: {{ p.precio | intcomma}}</p>
-                    <button type="button" class="btn btn-success">Agregar al carrito</button>
-                </div>
+                        {% endif %}
 
-                {% endfor %}
+                            <h3>{{ p.nombre | title}}</h3>
+                            <p>Precio: {{ p.precio | intcomma}}</p>
+                            <button type="button" class="btn btn-success">Agregar al carrito</button>
+                    </div>
 
-        
+                {% endif %}
+
+            {% endfor %}
+
         </div>
     </div>
 </section>
