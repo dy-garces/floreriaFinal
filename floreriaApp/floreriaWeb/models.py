@@ -89,6 +89,7 @@ class Forma_Pago(models.Model):
 class Seguimiento_Compra(models.Model):
     id_seguimiento = models.IntegerField(primary_key=True)
     descripcion = models.CharField(max_length=50)
+ 
     
     def __str__(self):
         return self.id_seguimiento
@@ -97,6 +98,7 @@ class Venta(models.Model):
     num_venta = models.IntegerField(primary_key=True)
     hora = datetime.now()
     fecha = models.DateField()
+    total = models.IntegerField()
     rut_cliente  =  models.ForeignKey(Cliente, on_delete=models.PROTECT)
     rut_vendedor = models.ForeignKey(Vendedor, on_delete= models.PROTECT)
     id_formaPago = models.ForeignKey(Forma_Pago, on_delete=models.PROTECT)
