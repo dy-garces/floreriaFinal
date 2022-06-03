@@ -6,7 +6,6 @@ from floreriaWeb.models import Categoria,Producto,Region,Comuna,Vendedor,Cliente
 
 admin.site.register(Categoria)
 admin.site.register(Producto)
-
 admin.site.register(Region)
 admin.site.register(Comuna)
 admin.site.register(Vendedor)
