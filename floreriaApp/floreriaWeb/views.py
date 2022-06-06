@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+from django.shortcuts import get_object_or_404, render, redirect
+=======
 from django.shortcuts import redirect, render
+>>>>>>> Roberto
 from .models import Producto
 from .forms import FormularioProducto
 # Create your views here.
@@ -55,6 +59,20 @@ def quienesSomos(request):
 
     return render(request,"floreriaWeb/quienesSomos.html")
 
+<<<<<<< HEAD
+def mostrar_producto(request,id):
+    
+    producto = get_object_or_404(Producto, id_producto=id)
+    
+    data = {
+        'producto' : producto
+    }
+    
+    return render(request,"floreriaWeb/mostrar_producto.html",data)
+
+def registro(request):
+    return render(request,"registration/registro.html")
+=======
 def FormProducto(request):
     form=FormularioProducto(request.POST or None)
     contexto={
@@ -68,3 +86,4 @@ def FormProducto(request):
             return redirect(to="home")
     return render(request,"floreriaWeb/FormularioProducto.html", contexto)
  
+>>>>>>> Roberto

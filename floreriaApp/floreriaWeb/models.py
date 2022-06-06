@@ -89,8 +89,6 @@ class Forma_Pago(models.Model):
 class Seguimiento_Compra(models.Model):
     id_seguimiento = models.IntegerField(primary_key=True)
     descripcion = models.CharField(max_length=50)
- 
-    
     def __str__(self):
         return self.id_seguimiento
     
