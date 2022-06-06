@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from .models import Producto
+from .forms import FormularioProducto
 # Create your views here.
 
 def home(request):
@@ -53,3 +54,16 @@ def contacto(request):
 def quienesSomos(request):
 
     return render(request,"floreriaWeb/quienesSomos.html")
+
+def FormProducto(request):
+    form=FormularioProducto(request.POST or None)
+    contexto={
+        "form":FormularioProducto
+    }
+    
+    if request.method=="POST":
+        form=FormularioProducto(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(to="home")
+    return render(request,"floreriaWeb/FormularioProducto.html", contexto)

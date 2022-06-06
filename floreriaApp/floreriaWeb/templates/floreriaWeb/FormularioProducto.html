@@ -1,0 +1,16 @@
+{% extends 'floreriaWeb/base.html' %}
+{% load static %}
+{% block contenido %}
+{% load humanize %}
+
+<h1>Hola estas llegando al formulario</h1>
+
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {{ form }}
+    <br>
+    <button type="submit" class="button">Registrar</button>
+</form>
+
+{% endblock contenido %}
