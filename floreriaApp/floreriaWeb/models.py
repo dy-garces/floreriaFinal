@@ -1,5 +1,6 @@
 from datetime import datetime
 from statistics import mode
+from unittest.mock import DEFAULT
 from django.db import models
 
 
@@ -11,18 +12,6 @@ class Categoria(models.Model):
     def __str__(self):
         return self.nombre
     
-class Producto(models.Model):
-    id_producto = models.AutoField(primary_key=True)
-    nombre = models.CharField(max_length=50)
-    precio = models.IntegerField()
-    descripcion = models.TextField(max_length=200)
-    imgen = models.ImageField(upload_to="productos",null=True)
-    categoria =  models.ForeignKey(Categoria, on_delete=models.PROTECT)
-    
-    def __str__(self):
-        return self.nombre
-    
-    
 class Region(models.Model):
     nombre = models.CharField(max_length=50)
     
@@ -32,6 +21,31 @@ class Region(models.Model):
 class Comuna(models.Model):
     nombre = models.CharField(max_length=50)
     region = models.ForeignKey(Region, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.nombre
+    
+class Vendedor(models.Model):
+    rut_vendedor = models.CharField(max_length=10,primary_key=True)
+    nombre = models.CharField(max_length=50)
+    appaterno = models.CharField(max_length=50)
+    apmaterno = models.CharField(max_length=50)
+    correo = models.EmailField()
+    numero = models.IntegerField()
+    comuna = models.ForeignKey(Comuna,on_delete=models.PROTECT)
+   
+    def __str__(self):
+        return self.rut_vendedor    
+    
+class Producto(models.Model):
+    id_producto = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=50)
+    precio = models.IntegerField()
+    stock= models.IntegerField(default=10)
+    descripcion = models.TextField(max_length=200)
+    imgen = models.ImageField(upload_to="productos",null=True)
+    categoria =  models.ForeignKey(Categoria, on_delete=models.PROTECT)
+    #rut_vendedor=models.ForeignKey(Vendedor, on_delete=models.PROTECT, default='rut')
     
     def __str__(self):
         return self.nombre
@@ -63,18 +77,6 @@ class Estado_subcripcion(models.Model):
     
     def __str__(self):
         return self.hora
-    
-class Vendedor(models.Model):
-    rut_vendedor = models.CharField(max_length=10,primary_key=True)
-    nombre = models.CharField(max_length=50)
-    appaterno = models.CharField(max_length=50)
-    apmaterno = models.CharField(max_length=50)
-    correo = models.EmailField()
-    numero = models.IntegerField()
-    comuna = models.ForeignKey(Comuna,on_delete=models.PROTECT)
-   
-    def __str__(self):
-        return self.rut_vendedor
     
 class Forma_Pago(models.Model):
     id_formaPago = models.IntegerField()
