@@ -1,7 +1,7 @@
 {% extends 'floreriaWeb/base.html' %}
 {% load static %}
-
 {% block contenido %}
+
 {% load humanize %}
 
 <section>
@@ -30,7 +30,10 @@
 
                             <h3>{{ p.nombre | title}}</h3>
                             <p>Precio: {{ p.precio | intcomma}}</p>
-                            <button type="button" class="btn btn-success">Agregar al carrito</button>
+                            <a href="{% url 'mostrar_producto' p.id_producto %}" class="btn btn-success btn-sm mb-3 " role="button"> Ver Detalle</a>
+             
+                            <button type="button" class="btn btn-success btn-sm mb-3">Añadir al carrito</button>
+                   
                         </div>
                     {% endif %}
                 {% endfor %}
