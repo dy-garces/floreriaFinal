@@ -3,7 +3,6 @@ from django.contrib import admin
 from floreriaWeb.models import Categoria,Producto,Region,Comuna,Vendedor,Cliente,Venta,Forma_Pago,Seguimiento_Compra,Detalle_Venta,Estado_subcripcion,Subcripcion
 
 # Register your models here.
-
 admin.site.register(Categoria)
 admin.site.register(Producto)
 admin.site.register(Region)
