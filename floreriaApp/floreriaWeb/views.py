@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render, redirect
 from .models import Producto
 # Create your views here.
 
@@ -53,3 +53,13 @@ def contacto(request):
 def quienesSomos(request):
 
     return render(request,"floreriaWeb/quienesSomos.html")
+
+def mostrar_producto(request,id):
+    
+    producto = get_object_or_404(Producto, id_producto=id)
+    
+    data = {
+        'producto' : producto
+    }
+    
+    return render(request,"floreriaWeb/mostrar_producto.html",data)
