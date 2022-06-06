@@ -1,6 +1,8 @@
+from email import message
 from django.shortcuts import get_object_or_404, render, redirect
 from .models import Producto
-from .forms import FormularioProducto
+from .forms import FormularioProducto,CustomUserCreationForm
+from django.contrib.auth import authenticate, login
 # Create your views here.
 
 def home(request):
@@ -66,7 +68,20 @@ def mostrar_producto(request,id):
     return render(request,"floreriaWeb/mostrar_producto.html",data)
 
 def registro(request):
-    return render(request,"registration/registro.html")
+    data = {
+        'form': CustomUserCreationForm()
+    }
+    if request.method == 'POST':
+        formulario = CustomUserCreationForm(data= request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            user = authenticate(username=formulario.cleaned_data["username"],password=formulario.cleaned_data["password1"])
+            login(request, user)
+            return redirect(to='home')
+        data["form"] = formulario    
+
+    return render(request,"registration/registro.html",data)
+
 
 def FormProducto(request):
     form=FormularioProducto(request.POST or None)
