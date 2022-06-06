@@ -63,3 +63,6 @@ def mostrar_producto(request,id):
     }
     
     return render(request,"floreriaWeb/mostrar_producto.html",data)
+
+def registro(request):
+    return render(request,"registration/registro.html")
