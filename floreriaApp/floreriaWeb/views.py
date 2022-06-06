@@ -62,8 +62,9 @@ def FormProducto(request):
     }
     
     if request.method=="POST":
-        form=FormularioProducto(data=request.POST)
+        form=FormularioProducto(data=request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
             return redirect(to="home")
     return render(request,"floreriaWeb/FormularioProducto.html", contexto)
+ 

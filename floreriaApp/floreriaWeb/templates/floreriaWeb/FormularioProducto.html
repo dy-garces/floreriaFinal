@@ -2,13 +2,14 @@
 {% load static %}
 {% block contenido %}
 {% load humanize %}
+{% load crispy_forms_tags %}
 
 <h1>Hola estas llegando al formulario</h1>
 
 <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
 
-    {{ form }}
+    {{ form | crispy }}
     <br>
     <button type="submit" class="button">Registrar</button>
 </form>
