@@ -1,5 +1,6 @@
 {% extends 'floreriaWeb/base.html' %}
 {% load static %}
+<<<<<<< HEAD
 {% block contenido %}
 {% load crispy_forms_tags %}
 
@@ -29,7 +30,41 @@
 
             </div>
             <div class="col-lg-2"></div>
+=======
+{% load crispy_forms_tags %}
+{% block contenido %}
+    
+ <div class="container">
+    <div class="row">
+        <div class="col-12 col-md-6 offset-md-3 pt-5 pb-5">
+            <h2> Ingresa tus credenciales</h2>
+            <hr>
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{ form | crispy }}
+
+            
+                <div class="row">
+                    <div class="col-6">
+                        <a href="#"> registrarse.</a>
+                    </div>
+                    <div class="col-6">
+                        <div class="d-flex justify-content-end">
+                            <input type="submit" value="ingresar" class="btn btn-success ">
+                        </div>
+                    </div>
+                </div>
+                
+
+            </form>
+>>>>>>> dyllan
         </div>
     </div>
+</div>
 
+<<<<<<< HEAD
 {% endblock contenido %}
+=======
+{% endblock contenido %}
+ 
+>>>>>>> dyllan
