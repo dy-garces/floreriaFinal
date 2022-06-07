@@ -13,34 +13,32 @@
 </section>
 
 <section>
-    <div class="container p-0">
-        <div style="float: right;">
-
-            <p>Total: {{importe_total_carro}}</p>
-
-        </div>
+    <div class="container p-0  ">
         <div class="row d-flex justify-content-center mx-0">
 
-            {% for p in productos %}
-                {% if p.categoria_id == 1 %}
-                    <div class="col-lg-3 col-sm-6 text-center border shadow m-3 ">
+        
 
-                        {% if p.imgen %}
+                {% for p in productos %}
+                    {% if p.categoria_id == 1 %}
+                        <div class="col-lg-3 col-sm-6 text-center border shadow m-3 ">
 
-                            <img src="{{ p.imgen.url }} " alt="imagen" class="img-fluid">
+                            {% if p.imgen %}
+                            
+                                <img src="{{ p.imgen.url }} " alt="imagen" class="img-fluid">
 
-                        {% endif %}
+                            {% endif %}
 
-                        <h3>{{ p.nombre | title}}</h3>
-                        <p>Precio: {{ p.precio | intcomma}}</p>
-                        <a href="{% url 'mostrar_producto' p.id_producto %}" class="btn btn-success btn-sm mb-3 " role="button">
-                            Ver Detalle</a>
+                            <h3>{{ p.nombre | title}}</h3>
+                            <p>Precio: {{ p.precio | intcomma}}</p>
+                            <a href="{% url 'mostrar_producto' p.id_producto %}" class="btn btn-success btn-sm mb-3 " role="button"> Ver Detalle</a>
+             
+                            <button type="button" class="btn btn-success btn-sm mb-3">Añadir al carrito</button>
+                   
+                        </div>
+                    {% endif %}
+                {% endfor %}
 
-                        <a href="#" class="btn btn-success btn-sm mb-3 " role="button"> Añadir al carrito</a>
-
-                    </div>
-                {% endif %}
-            {% endfor %}
+         
         </div>
     </div>
 </section>
