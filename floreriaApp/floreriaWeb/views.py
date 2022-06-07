@@ -94,4 +94,7 @@ def FormProducto(request):
             form.save()
             return redirect(to="home")
     return render(request,"floreriaWeb/FormularioProducto.html", contexto)
+
+def productoslistados(request):
+    return render(request,"floreriaWeb/productoslistados.html")
  

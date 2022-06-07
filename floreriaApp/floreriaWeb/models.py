@@ -45,7 +45,7 @@ class Producto(models.Model):
     descripcion = models.TextField(max_length=200)
     imgen = models.ImageField(upload_to="productos",null=True)
     categoria =  models.ForeignKey(Categoria, on_delete=models.PROTECT)
-    #rut_vendedor=models.ForeignKey(Vendedor, on_delete=models.PROTECT, default='rut')
+    rut_vendedor=models.ForeignKey(Vendedor, on_delete=models.PROTECT, default='34123665-7')
     
     def __str__(self):
         return self.nombre
