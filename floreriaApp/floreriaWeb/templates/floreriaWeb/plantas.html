@@ -32,8 +32,7 @@
                             <p>Precio: {{ p.precio | intcomma}}</p>
 
                             <a href="{% url 'mostrar_producto' p.id_producto %}" class="btn btn-success btn-sm mb-3 " role="button"> Ver Detalle</a>
-             
-                            <button type="button" class="btn btn-success btn-sm mb-3">Añadir al carrito</button>
+                            <a href="{% url 'Add' p.id_producto %}" class="btn btn-success btn-sm mb-3 " role="button">Añadir al carrito</a>
                     </div>
                 {% endif %}
 
