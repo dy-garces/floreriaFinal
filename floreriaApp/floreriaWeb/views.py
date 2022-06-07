@@ -96,5 +96,11 @@ def FormProducto(request):
     return render(request,"floreriaWeb/FormularioProducto.html", contexto)
 
 def productoslistados(request):
-    return render(request,"floreriaWeb/productoslistados.html")
+    producto=Producto.objects.all()
+    total=Producto.objects.count()
+    contexto={
+        "producto":producto,
+        "total":total
+    }
+    return render(request,"floreriaWeb/productoslistados.html", contexto)
  
