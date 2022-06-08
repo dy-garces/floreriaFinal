@@ -1,0 +1,70 @@
+{% extends 'floreriaWeb/base.html' %}
+{% load static %}
+{% block contenido %}
+{% load humanize %}
+
+<div class="container p-5 ">
+  <table class="table" id="myTable">
+    <thead>
+      <tr class="header">
+        <th>Nombre</th>
+        <th>Cantidad</th>
+        <th>Sub Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if request.session.carrito.items %}
+      {% for key, value in request.session.carrito.items %}
+      <tr>
+        <td data-label="Nombre">{{value.nombre}}</td>
+        <td data-label="Cantidad">{{value.cantidad | intcomma}}</td>
+        <td data-label="Sub Total">
+          <div class="row">
+            <div class="col-2">
+              {{value.acumulado | intcomma}}
+            </div>
+            <div class="col-2">
+              <a href="{% url 'agregar' value.producto_id %}" class="badge btn btn-dark badge-dark">+</a>
+            </div>
+            <div class="col-2">
+              <a href="{% url 'restar' value.producto_id %}" class="badge btn btn-dark badge-dark">-</a>
+            </div>
+            <div class="col-2">
+              <a href="{% url 'eliminar' value.producto_id %}" class="badge btn btn-danger badge-dark">Eliminar</a>
+            </div>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+      {% else %}
+      <tr>
+        <td colspan="3">
+          <div class="alert alert-danger text-center"> Sin Productos </div>
+        </td>
+      </tr>
+      {% endif %}
+      <tr>
+        <th>Total:</th>
+        <td data-label="Total"  colspan="2" >${{total_carrito | intcomma}} </td>
+      </tr>
+    </tbody>
+  </table>
+  <hr>
+  <div class="row text-center p-3">
+    <div class="col-6">
+      <div class="d-flex justify-content-end">
+        <a href="{% url 'limpiar' %}" class="btn btn-danger">Vaciar Carrito</a>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="d-flex justify-content-start">
+        {% if user.is_authenticated %}
+          <a href="#" class="btn btn-success">Comprar</a>
+        {% else%}
+          <a href="{% url 'login' %}" class="btn btn-success">Comprar</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock contenido %}

@@ -1,5 +1,5 @@
-from email import message
 from django.shortcuts import get_object_or_404, render, redirect
+from floreriaWeb.Carrito import Carrito
 from .models import Producto
 from .forms import FormularioProducto,CustomUserCreationForm
 from django.contrib.auth import authenticate, login
@@ -59,13 +59,10 @@ def quienesSomos(request):
     return render(request,"floreriaWeb/quienesSomos.html")
 
 def mostrar_producto(request,id):
-    
     producto = get_object_or_404(Producto, id_producto=id)
-    
     data = {
         'producto' : producto
     }
-    
     return render(request,"floreriaWeb/mostrar_producto.html",data)
 
 def registro(request):
@@ -97,40 +94,28 @@ def FormProducto(request):
             return redirect(to="productoslistados")
     return render(request,"floreriaWeb/FormularioProducto.html", contexto)
 
-def productoslistados(request):
-    producto=Producto.objects.all()
-    total=Producto.objects.count()
-    contexto={
-        "producto":producto,
-        "total":total
-    }
-    return render(request,"floreriaWeb/productoslistados.html", contexto)
+def agregar_producto(request, producto_id):
+    carrito = Carrito(request)
+    producto = Producto.objects.get(id_producto=producto_id)
+    carrito.agregar(producto)
+    return redirect("carrito")
 
-def modificarproducto(request, id_producto):
-    
-    producto=get_object_or_404(Producto,id_producto=id_producto)
-    data={
-        'form':FormularioProducto(instance=producto),
-        'id':id_producto,
-        
-    }
-    
-    if request.method=="POST":
-        formulariomodi=FormularioProducto(data=request.POST, instance=producto, files=request.FILES)
-        if formulariomodi.is_valid():
-            formulariomodi.save()
-            messages.success(request, "Producto modificado exitosamente")
-            return redirect(to="productoslistados")
-        data["form"]=formulariomodi
-            
-    return render(request,"floreriaWeb/modificarproducto.html", data)
+def eliminar_producto(request, producto_id):
+    carrito = Carrito(request)
+    producto = Producto.objects.get(id_producto=producto_id)
+    carrito.eliminar(producto)
+    return redirect("carrito")
 
-def eliminarproducto(request, id_producto):
-    producto= get_object_or_404(Producto, id_producto=id_producto)
-    producto.delete()
-    messages.success(request, "Producto eliminado exitosamente")
-    return redirect(to="productoslistados")
+def restar_producto(request, producto_id):
+    carrito = Carrito(request)
+    producto = Producto.objects.get(id_producto=producto_id)
+    carrito.restar(producto)
+    return redirect("carrito")
 
+def limpiar_carrito(request):
+    carrito = Carrito(request)
+    carrito.limpiar()
+    return redirect("carrito")
 
-
-
+def carrito(request):
+    return render(request,"floreriaWeb/carrito.html")
