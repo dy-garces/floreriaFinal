@@ -109,7 +109,6 @@ class Detalle_Venta(models.Model):
     id_producto = models.ForeignKey(Producto, on_delete=models.PROTECT)
     num_venta = models.ForeignKey(Venta, on_delete=models.PROTECT)
     
-    
     def __str__(self):
         return self.cantidad
     

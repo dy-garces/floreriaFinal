@@ -16,10 +16,10 @@ urlpatterns = [
     path('registro',registro, name="registro"),
     path("FormProducto/",FormProducto,name="FormProducto"),
     
-    path('agregar/<int:producto_id>/', agregar_producto, name="Add"),
-    path('eliminar/<int:producto_id>/', eliminar_producto, name="Del"),
-    path('restar/<int:producto_id>/', restar_producto, name="Sub"),
-    path('limpiar/', limpiar_carrito, name="CLS"),
+    path('agregar/<int:producto_id>/', agregar_producto, name="agregar"),
+    path('eliminar/<int:producto_id>/', eliminar_producto, name="eliminar"),
+    path('restar/<int:producto_id>/', restar_producto, name="restar"),
+    path('limpiar/', limpiar_carrito, name="limpiar"),
     path('carrito/',carrito,name="carrito"),
 ]
 

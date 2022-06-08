@@ -1,6 +1,4 @@
-from email import message
 from django.shortcuts import get_object_or_404, render, redirect
-
 from floreriaWeb.Carrito import Carrito
 from .models import Producto
 from .forms import FormularioProducto,CustomUserCreationForm
@@ -93,7 +91,7 @@ def FormProducto(request):
             form.save()
             return redirect(to="home")
     return render(request,"floreriaWeb/FormularioProducto.html", contexto)
- 
+
 def agregar_producto(request, producto_id):
     carrito = Carrito(request)
     producto = Producto.objects.get(id_producto=producto_id)
