@@ -1,7 +1,6 @@
-<<<<<<< HEAD
 from django.shortcuts import get_object_or_404, render, redirect
 from floreriaWeb.Carrito import Carrito
-from .models import Producto
+from .models import Cliente, Producto
 from .forms import FormularioProducto,CustomUserCreationForm
 from django.contrib.auth import authenticate, login
 # Create your views here.
@@ -116,55 +115,8 @@ def limpiar_carrito(request):
     carrito.limpiar()
     return redirect("carrito")
 
-def guardar(request, total):
-    usuario = request.user
-    total = total(request)
-    carrito = Carrito(request)
-    tot = tot["total_carrito"]
-
 def carrito(request):
     return render(request,"floreriaWeb/carrito.html")
-=======
-from django.shortcuts import get_object_or_404, render, redirect
-from django.shortcuts import redirect, render
-from .models import Producto
-from .forms import FormularioProducto
-# Create your views here.
-
-def home(request):
-    
-    return render(request,"floreriaWeb/home.html")
-
-def flores(request):
-    productos = Producto.objects.all()
-    contexto = {
-        'productos': productos
-    }
-    return render(request,'floreriaWeb/flores.html',contexto)
-
-def plantas(request):
-    productos = Producto.objects.all()
-    contexto = {
-        'productos': productos
-    }
-
-    return render(request,'floreriaWeb/plantas.html',contexto)
-
-def arboles(request):
-    productos = Producto.objects.all()
-    contexto = {
-        'productos': productos
-    }
-    return render(request,'floreriaWeb/arboles.html',contexto)
-
-def maceteros(request):
-    
-    productos = Producto.objects.all()
-    contexto = {
-        'productos': productos
-    }
-
-    return render(request,"floreriaWeb/maceteros.html",contexto)
 
 def jardineria(request):
     
@@ -209,4 +161,3 @@ def FormProducto(request):
             return redirect(to="home")
     return render(request,"floreriaWeb/FormularioProducto.html", contexto)
  
->>>>>>> nestor2
