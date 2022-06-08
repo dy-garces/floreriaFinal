@@ -1,7 +1,7 @@
 {% extends 'floreriaWeb/base.html' %}
 {% load static %}
-
 {% block contenido %}
+
 {% load humanize %}
 
 <section>
@@ -13,27 +13,26 @@
 </section>
 
 <section>
-    <div class="container p-0  ">
+    <div class="container">
         <div class="row d-flex justify-content-center mx-0">
-
                 {% for p in productos %}
+                    {% if p.categoria_id == 1 %}
+                        <div class="col-lg-3 col-sm-6 text-center border shadow m-3 ">
 
-                <div class="col-lg-3 col-sm-6 text-center border shadow m-3 ">
+                            {% if p.imgen %}
+                            
+                                <img src="{{ p.imgen.url }} " alt="imagen" class="img-fluid">
 
-                    {% if p.imgen %}
-                    
-                        <img src="{{ p.imgen.url }} " alt="imagen" class="img-fluid">
+                            {% endif %}
 
+                            <h3>{{ p.nombre | title}}</h3>
+                            <p>Precio: {{ p.precio | intcomma}}</p>
+                            <a href="{% url 'mostrar_producto' p.id_producto %}" class="btn btn-success btn-sm mb-3 " role="button"> Ver Detalle</a>
+                            <a href="{% url 'agregar' p.id_producto %}" class="btn btn-success btn-sm mb-3 " role="button">Añadir al carrito</a>
+                                               
+                        </div>
                     {% endif %}
-
-                    <h3>{{ p.nombre | title}}</h3>
-                    <p>Precio: {{ p.precio | intcomma}}</p>
-                    <button type="button" class="btn btn-success">Agregar al carrito</button>
-                </div>
-
                 {% endfor %}
-
-        
         </div>
     </div>
 </section>

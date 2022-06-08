@@ -2,7 +2,6 @@ from datetime import datetime
 from statistics import mode
 from django.db import models
 
-
 # Create your models here.
 
 class Categoria(models.Model):
@@ -12,17 +11,16 @@ class Categoria(models.Model):
         return self.nombre
     
 class Producto(models.Model):
-    id_producto = models.IntegerField(primary_key=True)
+    id_producto = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=50)
     precio = models.IntegerField()
-    descripcion = models.CharField(max_length=200)
+    descripcion = models.TextField(max_length=200)
     imgen = models.ImageField(upload_to="productos",null=True)
     categoria =  models.ForeignKey(Categoria, on_delete=models.PROTECT)
     
     def __str__(self):
-        return self.nombre
-    
-    
+        return self.nombre   
+   
 class Region(models.Model):
     nombre = models.CharField(max_length=50)
     
@@ -35,7 +33,6 @@ class Comuna(models.Model):
     
     def __str__(self):
         return self.nombre
-    
     
 class Cliente(models.Model):
     rut_cliente = models.CharField(max_length=10,primary_key=True)
@@ -83,13 +80,11 @@ class Forma_Pago(models.Model):
     def __str__(self):
         return self.descripcion
     
-
 ########################################################################## VENTA   
 
 class Seguimiento_Compra(models.Model):
     id_seguimiento = models.IntegerField(primary_key=True)
     descripcion = models.CharField(max_length=50)
-    
     def __str__(self):
         return self.id_seguimiento
     
@@ -97,6 +92,7 @@ class Venta(models.Model):
     num_venta = models.IntegerField(primary_key=True)
     hora = datetime.now()
     fecha = models.DateField()
+    total = models.IntegerField()
     rut_cliente  =  models.ForeignKey(Cliente, on_delete=models.PROTECT)
     rut_vendedor = models.ForeignKey(Vendedor, on_delete= models.PROTECT)
     id_formaPago = models.ForeignKey(Forma_Pago, on_delete=models.PROTECT)
@@ -113,10 +109,7 @@ class Detalle_Venta(models.Model):
     id_producto = models.ForeignKey(Producto, on_delete=models.PROTECT)
     num_venta = models.ForeignKey(Venta, on_delete=models.PROTECT)
     
-    
     def __str__(self):
         return self.cantidad
     
 
-
-    
