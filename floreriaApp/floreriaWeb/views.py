@@ -115,5 +115,11 @@ def limpiar_carrito(request):
     carrito.limpiar()
     return redirect("carrito")
 
+def guardar(request, total):
+    usuario = request.user
+    total = total(request)
+    carrito = Carrito(request)
+    tot = tot["total_carrito"]
+
 def carrito(request):
     return render(request,"floreriaWeb/carrito.html")
