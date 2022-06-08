@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from .models import Producto
 from .forms import FormularioProducto,CustomUserCreationForm
 from django.contrib.auth import authenticate, login
+from django.contrib import messages
 # Create your views here.
 
 def home(request):
@@ -92,7 +93,8 @@ def FormProducto(request):
         form=FormularioProducto(data=request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
-            return redirect(to="home")
+            messages.success(request, "Producto agregado exitosamente")
+            return redirect(to="productoslistados")
     return render(request,"floreriaWeb/FormularioProducto.html", contexto)
 
 def productoslistados(request):
@@ -103,4 +105,32 @@ def productoslistados(request):
         "total":total
     }
     return render(request,"floreriaWeb/productoslistados.html", contexto)
- 
+
+def modificarproducto(request, id_producto):
+    
+    producto=get_object_or_404(Producto,id_producto=id_producto)
+    data={
+        'form':FormularioProducto(instance=producto),
+        'id':id_producto,
+        
+    }
+    
+    if request.method=="POST":
+        formulariomodi=FormularioProducto(data=request.POST, instance=producto, files=request.FILES)
+        if formulariomodi.is_valid():
+            formulariomodi.save()
+            messages.success(request, "Producto modificado exitosamente")
+            return redirect(to="productoslistados")
+        data["form"]=formulariomodi
+            
+    return render(request,"floreriaWeb/modificarproducto.html", data)
+
+def eliminarproducto(request, id_producto):
+    producto= get_object_or_404(Producto, id_producto=id_producto)
+    producto.delete()
+    messages.success(request, "Producto eliminado exitosamente")
+    return redirect(to="productoslistados")
+
+
+
+
