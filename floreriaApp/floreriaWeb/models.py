@@ -44,14 +44,14 @@ class Cliente(models.Model):
     comuna = models.ForeignKey(Comuna, on_delete=models.PROTECT)
     
     def __str__(self):
-        return self.nombre
+        return ""+self.rut_cliente
 
 class Subcripcion(models.Model):
     num_sub = models.IntegerField(primary_key=True)
     descuento = models.IntegerField()
     
     def __str__(self):
-        return self.num_sub
+        return str(self.num_sub)
     
 class Estado_subcripcion(models.Model):
     hora = datetime.now()
@@ -59,7 +59,7 @@ class Estado_subcripcion(models.Model):
     num_sub = models.ForeignKey(Subcripcion , on_delete=models.PROTECT)
     
     def __str__(self):
-        return self.hora
+        return str(self.num_sub)+" "+str(self.rut_cliente)
     
 class Vendedor(models.Model):
     rut_vendedor = models.CharField(max_length=10,primary_key=True)
@@ -86,10 +86,10 @@ class Seguimiento_Compra(models.Model):
     id_seguimiento = models.IntegerField(primary_key=True)
     descripcion = models.CharField(max_length=50)
     def __str__(self):
-        return self.id_seguimiento
+        return self.descripcion
     
 class Venta(models.Model):
-    num_venta = models.IntegerField(primary_key=True)
+    num_venta = models.AutoField(primary_key=True)
     hora = datetime.now()
     fecha = models.DateField()
     total = models.IntegerField()
@@ -99,7 +99,7 @@ class Venta(models.Model):
     id_seguimiento = models.ForeignKey(Seguimiento_Compra, on_delete= models.PROTECT)
     
     def __str__(self):
-        return self.num_venta
+        return str(self.num_venta)
 
 class Detalle_Venta(models.Model):
     cantidad = models.IntegerField()
@@ -110,6 +110,11 @@ class Detalle_Venta(models.Model):
     num_venta = models.ForeignKey(Venta, on_delete=models.PROTECT)
     
     def __str__(self):
+<<<<<<< HEAD
         return self.cantidad
     
 
+=======
+        return str(self.num_venta)+" "+str(self.id_producto)+" "+str(self.cantidad)
+    
+>>>>>>> nestor2
