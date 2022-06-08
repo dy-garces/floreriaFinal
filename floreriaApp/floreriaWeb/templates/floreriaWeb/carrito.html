@@ -67,4 +67,14 @@
     </div>
   </div>
 </div>
+
+
+<section>
+  <ul>
+    {% for key, value in request.session.carrito.items %}
+    <li>{{ key }} : {{ value }}</li>
+    {% endfor %}
+</ul>
+</section>
+
 {% endblock contenido %}

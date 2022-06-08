@@ -69,7 +69,7 @@ class Vendedor(models.Model):
     correo = models.EmailField()
     numero = models.IntegerField()
     comuna = models.ForeignKey(Comuna,on_delete=models.PROTECT)
-   
+    
     def __str__(self):
         return self.rut_vendedor
     
