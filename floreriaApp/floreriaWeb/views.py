@@ -1,7 +1,10 @@
-from django.shortcuts import get_object_or_404, render, redirect
+import re
+from django.shortcuts import get_object_or_404, render
 from django.shortcuts import redirect, render
-from .models import Producto
-from .forms import FormularioProducto
+from .models import PerfilUsuario, Producto
+from .forms import FormularioProducto, frmPerfilUsuario
+from django.contrib.auth.forms import UserCreationForm,PasswordChangeForm
+from django.contrib.auth import authenticate,login
 # Create your views here.
 
 def home(request):
@@ -66,9 +69,6 @@ def mostrar_producto(request,id):
     
     return render(request,"floreriaWeb/mostrar_producto.html",data)
 
-def registro(request):
-    return render(request,"registration/registro.html")
-
 def FormProducto(request):
     form=FormularioProducto(request.POST or None)
     contexto={
@@ -82,3 +82,54 @@ def FormProducto(request):
             return redirect(to="home")
     return render(request,"floreriaWeb/FormularioProducto.html", contexto)
  
+ ########################################################################## Perfil usuario
+def registro(request):
+    form=UserCreationForm(request.POST or None)
+    contexto={
+        "frm":form
+    }
+    if request.method=="POST":
+        form=UserCreationForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            credenciales=authenticate(username=form.cleaned_data("username"),password=form.cleaned_data("password1"))
+            login(request,credenciales)
+            return redirect(to="perfilusuario.html")
+        
+    return render(request,"registration/registro.html",contexto)
+
+
+def perfilusuario(request):
+    form=frmPerfilUsuario(request.POST or None)
+    contexto={
+        "frm":form
+    }
+    if request.method=="POST":
+        form=UserCreationForm(data=request.POST)
+        if form.is_valid():
+            datos=form.cleaned_data
+            perfil=PerfilUsuario()
+            perfil.rut=datos.get("rut")
+            perfil.nombre=datos.get("nombre")
+            perfil.apellido=datos.get("apellido")
+            perfil.direccion=datos.get("direccion")
+            perfil.nombre_usuario=request.user.username
+            perfil.save()         
+            return redirect(to="home")
+        
+    return render(request,"floreriaWeb/perfilusuario.html",contexto)
+
+def cabiarpassword(request):
+    form=PasswordChangeForm(request.POST or None)
+    contexto={
+        "frm":form
+    }
+    if request.method=="POST":
+        form=PasswordChangeForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            credenciales=authenticate(username=form.cleaned_data("username"),password=form.cleaned_data("password1"))
+            login(request,credenciales)
+            return redirect(to="perfilusuario.html")
+        
+    return render(request,"registration/registro.html",contexto)

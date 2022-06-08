@@ -117,3 +117,14 @@ class Detalle_Venta(models.Model):
     def __str__(self):
         return str(self.num_venta)+" "+str(self.id_producto)+" "+str(self.cantidad)
     
+########################################################################## Perfil usuario
+class PerfilUsuario(models.Model):
+    nombre_usuario=models.CharField(primary_key=True,max_length=50)
+    nombre=models.CharField(max_length=25)
+    apellido=models.CharField(max_length=25)
+    rut=models.CharField(unique=True,max_length=10)
+    direccion=models.CharField(max_length=250)
+    suscrito=models.BooleanField(default=False)
+    
+    def __str__(self):
+        return self.nombre + " "+self.apellido

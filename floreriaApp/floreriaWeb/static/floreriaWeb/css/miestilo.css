@@ -94,7 +94,6 @@
     width: 100%;
     max-width: 1000px;
     margin: auto;
-    min-height:100vh;
 }
 
 .table {
@@ -169,4 +168,7 @@
         text-transform: uppercase;
         float: left;
     }
+}
+.container{
+    min-height: 100vh;
 }
