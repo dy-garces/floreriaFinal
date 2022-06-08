@@ -110,11 +110,4 @@ class Detalle_Venta(models.Model):
     num_venta = models.ForeignKey(Venta, on_delete=models.PROTECT)
     
     def __str__(self):
-<<<<<<< HEAD
         return self.cantidad
-    
-
-=======
-        return str(self.num_venta)+" "+str(self.id_producto)+" "+str(self.cantidad)
-    
->>>>>>> nestor2
