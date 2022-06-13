@@ -1,8 +1,5 @@
-from unicodedata import name
 from django.urls import path
-from floreriaWeb.views import FormProducto, cabiarpassword,home,flores, perfilusuario,plantas,arboles,maceteros,jardineria,contacto,quienesSomos,mostrar_producto,registro
-
-
+from floreriaWeb.views import cambiarpassword, fundacion, home,flores, perfil, perfilusuario,plantas,arboles,maceteros,jardineria,contacto,quienesSomos,mostrar_producto,registro,FormProducto,agregar_producto,eliminar_producto,restar_producto,limpiar_carrito,carrito
 urlpatterns = [
     path('',home,name="home"),
     path('flores/',flores,name="flores"),
@@ -16,6 +13,13 @@ urlpatterns = [
     path('registro/',registro, name="registro"),
     path("FormProducto/",FormProducto,name="FormProducto"),
     path("perfilusuario/",perfilusuario,name="perfilusuario"),
-    path("cambiarpassword/",cabiarpassword,name="cambiarpassword")
+    path("cambiarpassword/",cambiarpassword,name="cambiarpassword"),
+    path("agregar/<int:producto_id>/", agregar_producto, name="agregar"),
+    path('eliminar/<int:producto_id>/', eliminar_producto, name="eliminar"),
+    path('restar/<int:producto_id>/', restar_producto, name="restar"),
+    path('limpiar/', limpiar_carrito, name="limpiar"),
+    path('carrito/',carrito,name="carrito"),
+    path('perfil/',perfil,name="perfil"),
+    path('fundacion/',fundacion,name="fundacion")
 ]
 

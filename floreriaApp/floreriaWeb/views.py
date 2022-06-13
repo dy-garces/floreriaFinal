@@ -1,12 +1,10 @@
-import re
-from django.shortcuts import get_object_or_404, render
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, render,redirect
+from floreriaWeb.Carrito import Carrito
 from .models import PerfilUsuario, Producto
 from .forms import FormularioProducto, frmPerfilUsuario
 from django.contrib.auth.forms import UserCreationForm,PasswordChangeForm
 from django.contrib.auth import authenticate,login
 # Create your views here.
-
 def home(request):
     
     return render(request,"floreriaWeb/home.html")
@@ -59,14 +57,16 @@ def quienesSomos(request):
 
     return render(request,"floreriaWeb/quienesSomos.html")
 
+def fundacion(request):
+
+    return render(request,"floreriaWeb/fundacion.html")
+
 def mostrar_producto(request,id):
-    
     producto = get_object_or_404(Producto, id_producto=id)
-    
     data = {
         'producto' : producto
     }
-    
+
     return render(request,"floreriaWeb/mostrar_producto.html",data)
 
 def FormProducto(request):
@@ -82,20 +82,47 @@ def FormProducto(request):
             return redirect(to="home")
     return render(request,"floreriaWeb/FormularioProducto.html", contexto)
  
+def agregar_producto(request, producto_id):
+    carrito = Carrito(request)
+    producto = Producto.objects.get(id_producto=producto_id)
+    carrito.agregar(producto)
+    return redirect("carrito")
+
+def eliminar_producto(request, producto_id):
+    carrito = Carrito(request)
+    producto = Producto.objects.get(id_producto=producto_id)
+    carrito.eliminar(producto)
+    return redirect("carrito")
+
+def restar_producto(request, producto_id):
+    carrito = Carrito(request)
+    producto = Producto.objects.get(id_producto=producto_id)
+    carrito.restar(producto)
+    return redirect("carrito")
+
+def limpiar_carrito(request):
+    carrito = Carrito(request)
+    carrito.limpiar()
+    return redirect("carrito")
+
+def carrito(request):
+    return render(request,"floreriaWeb/carrito.html")
+
  ########################################################################## Perfil usuario
 def registro(request):
     form=UserCreationForm(request.POST or None)
     contexto={
         "frm":form
     }
+    
     if request.method=="POST":
         form=UserCreationForm(data=request.POST)
         if form.is_valid():
             form.save()
-            credenciales=authenticate(username=form.cleaned_data("username"),password=form.cleaned_data("password1"))
+            credenciales=authenticate(username=form.cleaned_data["username"],password=form.cleaned_data["password1"])
             login(request,credenciales)
-            return redirect(to="perfilusuario.html")
-        
+            return redirect(to="perfilusuario")
+    
     return render(request,"registration/registro.html",contexto)
 
 
@@ -105,7 +132,7 @@ def perfilusuario(request):
         "frm":form
     }
     if request.method=="POST":
-        form=UserCreationForm(data=request.POST)
+        form=frmPerfilUsuario(data=request.POST)
         if form.is_valid():
             datos=form.cleaned_data
             perfil=PerfilUsuario()
@@ -117,19 +144,22 @@ def perfilusuario(request):
             perfil.save()         
             return redirect(to="home")
         
-    return render(request,"floreriaWeb/perfilusuario.html",contexto)
+    return render(request,"registration/perfilusuario.html",contexto)
 
-def cabiarpassword(request):
+def cambiarpassword(request):
     form=PasswordChangeForm(request.POST or None)
     contexto={
         "frm":form
     }
+    
     if request.method=="POST":
         form=PasswordChangeForm(data=request.POST)
         if form.is_valid():
             form.save()
-            credenciales=authenticate(username=form.cleaned_data("username"),password=form.cleaned_data("password1"))
-            login(request,credenciales)
-            return redirect(to="perfilusuario.html")
-        
-    return render(request,"registration/registro.html",contexto)
+            return redirect(to="home")
+    
+    return render(request,"registration/cambiarpassword.html",contexto)
+
+def perfil(request):
+
+    return render(request,"floreriaWeb/perfil.html")
